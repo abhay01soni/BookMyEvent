@@ -24,6 +24,7 @@ exports.registerUser = async(req,res) =>{
 
     try{
         const user = new User({name, email, password: hashPassword , role: 'user',isVerified: false})
+        await user.save();
         
         
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
