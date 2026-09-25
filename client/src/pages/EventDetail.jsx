@@ -64,80 +64,80 @@ const EventDetail = () => {
     const isSoldOut = event.availableSeats <= 0;
 
     return (
-        <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden mt-8">
+        <div className="max-w-4xl mx-auto bg-[#0e1122]/90 backdrop-blur-md rounded-3xl shadow-2xl border border-white/10 overflow-hidden mt-8 text-white">
             {event.image ? (
                 <img src={event.image} alt={event.title} className="w-full h-80 object-cover" />
             ) : (
-                <div className="w-full h-64 bg-gray-900 flex items-center justify-center text-white/50 text-6xl font-black uppercase tracking-widest">
+                <div className="w-full h-64 bg-slate-900 flex items-center justify-center text-purple-400/50 text-6xl font-black uppercase tracking-widest border-b border-white/10">
                     {event.category}
                 </div>
             )}
 
             <div className="p-8 md:p-12">
-                <div className="flex flex-col md:flex-row justify-between items-start mb-8 gap-6">
-                    <div>
-                        <div className="inline-block bg-gray-200 text-gray-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide mb-3">
+                <div className="flex flex-col md:flex-row justify-between items-start mb-8 gap-8">
+                    <div className="flex-1">
+                        <div className="inline-block bg-purple-950/60 border border-purple-500/30 text-purple-300 text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider mb-4">
                             {event.category}
                         </div>
-                        <h1 className="text-4xl font-extrabold text-gray-900 mb-4">{event.title}</h1>
-                        <p className="text-gray-600 text-lg leading-relaxed mb-6">{event.description}</p>
+                        <h1 className="text-3xl md:text-4xl font-black text-white mb-4 leading-tight">{event.title}</h1>
+                        <p className="text-gray-300 text-base md:text-lg leading-relaxed mb-6 font-normal">{event.description}</p>
                     </div>
 
-                    <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 min-w-[300px] w-full md:w-auto shrink-0 shadow-sm">
-                        <h3 className="text-xl font-bold text-gray-800 mb-6">Booking Details</h3>
+                    <div className="bg-[#14182e]/90 p-6 sm:p-8 rounded-2xl border border-white/10 min-w-[300px] w-full md:w-auto shrink-0 shadow-xl">
+                        <h3 className="text-xl font-extrabold text-white mb-6 border-b border-white/10 pb-3">Booking Details</h3>
 
-                        <div className="space-y-4 mb-8">
-                            <div className="flex items-center gap-4 text-gray-600">
-                                <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-900 shrink-0">
+                        <div className="space-y-5 mb-8">
+                            <div className="flex items-center gap-4 text-gray-300">
+                                <div className="w-10 h-10 rounded-xl bg-purple-900/40 border border-purple-500/30 flex items-center justify-center text-purple-300 shrink-0">
                                     <FaMoneyBillWave />
                                 </div>
                                 <div>
-                                    <p className="text-sm font-semibold text-gray-400 uppercase">Ticket Price</p>
-                                    <p className="font-bold text-gray-800 text-lg">{event.ticketPrice === 0 ? <span className="text-green-500">Free</span> : `₹${event.ticketPrice}`}</p>
+                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Ticket Price</p>
+                                    <p className="font-extrabold text-white text-lg">{event.ticketPrice === 0 ? <span className="text-emerald-400">Free</span> : `₹${event.ticketPrice}`}</p>
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-4 text-gray-600">
-                                <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-900 shrink-0">
+                            <div className="flex items-center gap-4 text-gray-300">
+                                <div className="w-10 h-10 rounded-xl bg-purple-900/40 border border-purple-500/30 flex items-center justify-center text-purple-300 shrink-0">
                                     <FaChair />
                                 </div>
                                 <div>
-                                    <p className="text-sm font-semibold text-gray-400 uppercase">Availability</p>
-                                    <p className="font-bold text-gray-800">
-                                        <span className={event.availableSeats < 10 ? 'text-orange-500' : ''}>{event.availableSeats}</span> / {event.totalSeats}
+                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Availability</p>
+                                    <p className="font-extrabold text-white">
+                                        <span className={event.availableSeats < 10 ? 'text-amber-400' : 'text-emerald-400'}>{event.availableSeats}</span> / {event.totalSeats} seats
                                     </p>
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-4 text-gray-600">
-                                <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-900 shrink-0">
+                            <div className="flex items-center gap-4 text-gray-300">
+                                <div className="w-10 h-10 rounded-xl bg-purple-900/40 border border-purple-500/30 flex items-center justify-center text-purple-300 shrink-0">
                                     <FaCalendarAlt />
                                 </div>
                                 <div>
-                                    <p className="text-sm font-semibold text-gray-400 uppercase">Date</p>
-                                    <p className="font-bold text-gray-800">{new Date(event.date).toLocaleDateString()}</p>
+                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Date</p>
+                                    <p className="font-extrabold text-white">{new Date(event.date).toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}</p>
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-4 text-gray-600">
-                                <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-900 shrink-0">
+                            <div className="flex items-center gap-4 text-gray-300">
+                                <div className="w-10 h-10 rounded-xl bg-purple-900/40 border border-purple-500/30 flex items-center justify-center text-purple-300 shrink-0">
                                     <FaMapMarkerAlt />
                                 </div>
                                 <div>
-                                    <p className="text-sm font-semibold text-gray-400 uppercase">Location</p>
-                                    <p className="font-bold text-gray-800">{event.location}</p>
+                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Location</p>
+                                    <p className="font-extrabold text-white">{event.location}</p>
                                 </div>
                             </div>
                         </div>
 
                         {showOTP && (
                             <div className="mb-4">
-                                <label className="block text-sm font-semibold text-gray-700 mb-2">Enter OTP to Confirm</label>
+                                <label className="block text-xs font-bold uppercase tracking-wider text-purple-300 mb-2">Enter OTP to Confirm</label>
                                 <input
                                     type="text"
                                     required
                                     placeholder="6-digit code"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-gray-700 transition shadow-sm font-bold tracking-widest text-center text-lg"
+                                    className="w-full px-4 py-3 rounded-xl bg-[#1d2342] text-white border border-white/10 focus:border-purple-500 outline-none transition font-bold tracking-widest text-center text-xl"
                                     value={otp}
                                     onChange={(e) => setOtp(e.target.value)}
                                     maxLength="6"
@@ -148,15 +148,15 @@ const EventDetail = () => {
                         <button
                             onClick={handleBooking}
                             disabled={isSoldOut || bookingLoading || (showOTP && !otp)}
-                            className={`w-full py-4 px-6 rounded-xl font-bold text-lg transition shadow-lg ${isSoldOut || (successMsg && !showOTP)
-                                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                                : 'bg-gray-900 hover:bg-black text-white hover:shadow-xl hover:-translate-y-1'
+                            className={`w-full py-4 px-6 rounded-xl font-bold text-base transition shadow-lg border border-white/10 ${isSoldOut || (successMsg && !showOTP)
+                                ? 'bg-gray-800 text-gray-500 border-gray-700 cursor-not-allowed'
+                                : 'bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white active:scale-95'
                                 }`}
                         >
                             {bookingLoading ? 'Processing...' : (showOTP ? 'Verify OTP & Confirm' : (successMsg && !showOTP ? 'Request Sent' : (isSoldOut ? 'Sold Out' : 'Confirm Registration')))}
                         </button>
-                        {error && <p className="text-red-500 mt-4 text-center font-medium bg-red-50 p-2 rounded">{error}</p>}
-                        {successMsg && <p className="text-green-600 mt-4 text-center font-medium bg-green-50 p-2 rounded">{successMsg}</p>}
+                        {error && <p className="text-red-300 mt-4 text-center font-medium bg-red-950/60 p-3 rounded-xl border border-red-500/30 text-sm">{error}</p>}
+                        {successMsg && <p className="text-emerald-300 mt-4 text-center font-medium bg-emerald-950/60 p-3 rounded-xl border border-emerald-500/30 text-sm">{successMsg}</p>}
                     </div>
                 </div>
             </div>

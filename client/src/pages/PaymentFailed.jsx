@@ -1,105 +1,26 @@
-import React, { useState, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
-import { useNavigate, Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { FaTimesCircle } from 'react-icons/fa';
 
-const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [otp, setOtp] = useState('');
-    const [showOTP, setShowOTP] = useState(false);
-    const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
-
-    const { login, verifyOTP } = useContext(AuthContext);
-    const navigate = useNavigate();
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setError('');
-        try {
-            if (!showOTP) {
-                const data = await login(email, password);
-                if (data.role === 'admin') navigate('/admin');
-                else navigate('/dashboard');
-            } else {
-                const data = await verifyOTP(email, otp);
-                if (data.role === 'admin') navigate('/admin');
-                else navigate('/dashboard');
-            }
-        } catch (err) {
-            if (err.needsVerification) {
-                setShowOTP(true);
-                setError('Account not verified. A new OTP has been sent to your email.');
-            } else {
-                setError(err.message || err);
-            }
-        } finally {
-            setLoading(false);
-        }
-    };
-
+const PaymentFailed = () => {
     return (
-        <div className="max-w-md mx-auto mt-20 bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-            <div className="text-center mb-8">
-                <h2 className="text-3xl font-extrabold text-gray-900 mb-2">Welcome Back</h2>
-                <p className="text-gray-500">Sign in to your Eventora account</p>
+        <div className="min-h-[70vh] flex flex-col items-center justify-center p-4 text-white">
+            <div className="bg-[#0e1122]/90 backdrop-blur-md p-10 rounded-3xl shadow-2xl max-w-md w-full text-center border border-white/10 relative overflow-hidden transform transition-all hover:-translate-y-1">
+                <div className="absolute -top-16 -left-16 w-32 h-32 bg-red-600/20 blur-3xl rounded-full pointer-events-none"></div>
+                <FaTimesCircle className="text-red-400 text-7xl mx-auto mb-6 drop-shadow-[0_0_15px_rgba(248,113,113,0.4)]" />
+                <h1 className="text-3xl font-black text-white mb-4 tracking-tight">Payment Failed</h1>
+                <p className="text-gray-300 mb-8 text-base leading-relaxed">We could not process your ticket booking. Please check your credentials or try again later.</p>
+                <div className="space-y-4">
+                    <Link to="/" className="block w-full bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-bold py-3.5 px-6 rounded-xl transition shadow-lg shadow-purple-900/40 border border-white/10">
+                        Try Again
+                    </Link>
+                    <Link to="/dashboard" className="block w-full bg-[#161a33] hover:bg-[#1f2447] text-gray-200 font-bold py-3.5 px-6 rounded-xl border border-white/10 transition">
+                        Go to Dashboard
+                    </Link>
+                </div>
             </div>
-
-            {error && <div className="bg-red-50 text-red-600 p-3 rounded-lg mb-6 text-center shadow-inner border border-red-100">{error}</div>}
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-                {!showOTP ? (
-                    <>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
-                            <input
-                                type="email"
-                                required
-                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-700 focus:border-gray-700 transition shadow-sm"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
-                            <input
-                                type="password"
-                                required
-                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-700 focus:border-gray-700 transition shadow-sm"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </div>
-                    </>
-                ) : (
-                    <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">Verification Code (OTP)</label>
-                        <input
-                            type="text"
-                            required
-                            placeholder="6-digit code"
-                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gray-700 transition shadow-sm font-bold tracking-widest text-center text-lg"
-                            value={otp}
-                            onChange={(e) => setOtp(e.target.value)}
-                            maxLength="6"
-                        />
-                    </div>
-                )}
-                <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full bg-gray-900 text-white font-bold py-3 rounded-lg hover:bg-black focus:ring-4 focus:ring-gray-200 transition shadow-md"
-                >
-                    {loading ? 'Processing...' : (showOTP ? 'Verify OTP & Log In' : 'Sign In')}
-                </button>
-            </form>
-
-            <p className="text-center mt-8 text-gray-600">
-                Don't have an account? <Link to="/register" className="text-gray-900 font-bold hover:underline">Sign up</Link>
-            </p>
         </div>
     );
 };
 
-export default Login;
+export default PaymentFailed;
