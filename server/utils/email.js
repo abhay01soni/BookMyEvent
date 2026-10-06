@@ -1,15 +1,32 @@
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
+const path = require('path');
 
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+const emailUser = process.env.EMAIL_USER?.trim();
+const emailPassword = process.env.EMAIL_PASS?.replace(/\s/g, '');
 
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+        user: emailUser,
+        pass: emailPassword
     }
 });
+
+const getEmailError = (error, purpose) => {
+    if (error.code === 'EAUTH' || error.responseCode === 535) {
+        return new Error(
+            `Gmail rejected the email credentials while sending ${purpose}. ` +
+            'Use the Gmail account address and a newly generated 16-character App Password in server/.env.'
+        );
+    }
+
+    return new Error(`Unable to send ${purpose}: ${error.message}`);
+};
 
 const sendBookingEmail = async (userEmail, userName, eventTitle) => {
     try {
@@ -27,6 +44,7 @@ const sendBookingEmail = async (userEmail, userName, eventTitle) => {
         console.log('Email sent successfully to', userEmail);
     } catch (error) {
         console.error('Error sending email:', error);
+        throw getEmailError(error, 'booking email');
     }
 };
 
@@ -56,6 +74,7 @@ const sendOTPEmail = async (userEmail, otp, type) => {
         console.log(`OTP sent to ${userEmail} for ${type}`);
     } catch (error) {
         console.error('Error sending OTP email:', error);
+        throw getEmailError(error, 'verification email');
     }
 };
 

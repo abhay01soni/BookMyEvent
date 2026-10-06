@@ -8,16 +8,16 @@ const Booking = require('./models/Booking');
 dotenv.config();
 
 const users = [
-    { name: 'Admin User', email: 'admin@eventora.com', password: 'password123', role: 'admin' },
-    { name: 'Demo User', email: 'user@eventora.com', password: 'password123', role: 'user' },
-    { name: 'Alice Smith', email: 'alice@eventora.com', password: 'password123', role: 'user' },
-    { name: 'Bob Johnson', email: 'bob@eventora.com', password: 'password123', role: 'user' },
-    { name: 'Charlie Dave', email: 'charlie@eventora.com', password: 'password123', role: 'user' },
-    { name: 'Diana Prince', email: 'diana@eventora.com', password: 'password123', role: 'user' },
-    { name: 'Ethan Hunt', email: 'ethan@eventora.com', password: 'password123', role: 'user' },
-    { name: 'Fiona Gallagher', email: 'fiona@eventora.com', password: 'password123', role: 'user' },
-    { name: 'George Miller', email: 'george@eventora.com', password: 'password123', role: 'user' },
-    { name: 'Hannah Montana', email: 'hannah@eventora.com', password: 'password123', role: 'user' }
+    { name: 'Admin User', email: 'admin@bookmyevent.com', password: 'password123', role: 'admin' },
+    { name: 'Demo User', email: 'user@bookmyevent.com', password: 'password123', role: 'user' },
+    { name: 'Alice Smith', email: 'alice@bookmyevent.com', password: 'password123', role: 'user' },
+    { name: 'Bob Johnson', email: 'bob@bookmyevent.com', password: 'password123', role: 'user' },
+    { name: 'Charlie Dave', email: 'charlie@bookmyevent.com', password: 'password123', role: 'user' },
+    { name: 'Diana Prince', email: 'diana@bookmyevent.com', password: 'password123', role: 'user' },
+    { name: 'Ethan Hunt', email: 'ethan@bookmyevent.com', password: 'password123', role: 'user' },
+    { name: 'Fiona Gallagher', email: 'fiona@bookmyevent.com', password: 'password123', role: 'user' },
+    { name: 'George Miller', email: 'george@bookmyevent.com', password: 'password123', role: 'user' },
+    { name: 'Hannah Montana', email: 'hannah@bookmyevent.com', password: 'password123', role: 'user' }
 ];
 
 const events = [
@@ -160,8 +160,8 @@ const seedDatabase = async () => {
 
         console.log('\n🚀 Database seeded successfully!');
         console.log('-------------------------------------------');
-        console.log('Admin Email: admin@eventora.com');
-        console.log('User Email:  user@eventora.com');
+        console.log('Admin Email: admin@bookmyevent.com');
+        console.log('User Email:  user@bookmyevent.com');
         console.log('Password for all users: password123');
         console.log('-------------------------------------------\n');
 

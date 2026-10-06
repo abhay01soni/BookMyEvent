@@ -1,5 +1,10 @@
 {
+  "scripts": {
+    "dev": "concurrently -n SERVER,CLIENT -c blue,green \"cd server && npm run dev\" \"cd client && npm run dev\"",
+    "install:all": "concurrently -n SERVER,CLIENT -c blue,green \"cd server && npm install\" \"cd client && npm install\""
+  },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.3"
+    "@tailwindcss/postcss": "^4.3.3",
+    "concurrently": "^10.0.5"
   }
 }
